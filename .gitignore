@@ -1,0 +1,28 @@
+#Build caches
+build/
+bin/
+gen/
+war/
+
+#GWT specific files and directories
+.gwt/
+
+#Gradle specific files
+.gradle
+.temp/
+local.properties
+
+#Eclipse specific files and directories
+.classpath
+.project
+.settings/
+
+#Blender files
+*.blend1
+*.blend2
+
+#GDX libraries
+libgdx.so
+
+#KDE specific
+.directory
