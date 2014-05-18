@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.IntAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
@@ -73,7 +74,7 @@ public class LibgdxModelViewer extends ApplicationAdapter implements AnimationLi
 	private boolean loading = true;
 	
 	/** Model filename */
-	private String modelName = "robot4/robot4.g3db";
+	private String modelName = "robot3/robot3.g3db";
 	
 	/** Index of the current animation */
 	private int currentAnimation = -1;
@@ -135,9 +136,10 @@ public class LibgdxModelViewer extends ApplicationAdapter implements AnimationLi
         model = assetManager.get(modelName, Model.class);
         instance = new ModelInstance(model); 
         
-        //Disable backface culling and enable blending
+        //Disable backface culling and enable alpha test and blending
         for(Material m : instance.materials){
         	m.set(new IntAttribute(IntAttribute.CullFace, GL20.GL_NONE));
+        	m.set(new FloatAttribute(FloatAttribute.AlphaTest, 0.5f));
         	m.set(new BlendingAttribute(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA));
         }
         
