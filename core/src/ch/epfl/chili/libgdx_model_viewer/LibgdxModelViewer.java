@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.IntAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
@@ -72,7 +73,7 @@ public class LibgdxModelViewer extends ApplicationAdapter implements AnimationLi
 	private boolean loading = true;
 	
 	/** Model filename */
-	private String modelName = "funky_palm_tree/funky_palm_tree.g3db";
+	private String modelName = "robot4/robot4.g3db";
 	
 	/** Index of the current animation */
 	private int currentAnimation = -1;
@@ -134,9 +135,11 @@ public class LibgdxModelViewer extends ApplicationAdapter implements AnimationLi
         model = assetManager.get(modelName, Model.class);
         instance = new ModelInstance(model); 
         
-        //Disable backface culling
-        for(Material m : instance.materials)
+        //Disable backface culling and enable blending
+        for(Material m : instance.materials){
         	m.set(new IntAttribute(IntAttribute.CullFace, GL20.GL_NONE));
+        	m.set(new BlendingAttribute(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA));
+        }
         
         //Get animations if any
         if(instance.animations.size > 0){
@@ -169,6 +172,7 @@ public class LibgdxModelViewer extends ApplicationAdapter implements AnimationLi
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
 		modelBatch.begin(camera);
 		if(instance != null)
 			modelBatch.render(instance, environment);
