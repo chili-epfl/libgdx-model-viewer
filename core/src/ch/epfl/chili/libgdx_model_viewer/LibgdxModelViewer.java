@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.graphics.g3d.attributes.IntAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController.AnimationDesc;
@@ -88,7 +89,7 @@ public class LibgdxModelViewer extends ApplicationAdapter implements AnimationLi
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
 		light = new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f);
 		environment.add(light);
-
+		
 		//Initialize batches and fonts
 		modelBatch = new ModelBatch();
 		spriteBatch = new SpriteBatch();
@@ -129,9 +130,15 @@ public class LibgdxModelViewer extends ApplicationAdapter implements AnimationLi
 	 */
 	private void doneLoading() {
 		
-		//Get our model and its animations if any
+		//Get our model
         model = assetManager.get(modelName, Model.class);
         instance = new ModelInstance(model); 
+        
+        //Disable backface culling
+        for(Material m : instance.materials)
+        	m.set(new IntAttribute(IntAttribute.CullFace, Gdx.gl.GL_NONE));
+        
+        //Get animations if any
         if(instance.animations.size > 0){
         	animationController = new AnimationController(instance);
         	animationController.allowSameAnimation = true;
