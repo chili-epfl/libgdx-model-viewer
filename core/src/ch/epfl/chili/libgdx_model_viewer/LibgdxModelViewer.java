@@ -74,7 +74,7 @@ public class LibgdxModelViewer extends ApplicationAdapter implements AnimationLi
 	private boolean loading = true;
 	
 	/** Model filename */
-	private String modelName = "robot3/robot3.g3db";
+	private String modelName = "funky_palm_tree/funky_palm_tree.g3db";
 	
 	/** Index of the current animation */
 	private int currentAnimation = -1;
