@@ -136,7 +136,7 @@ public class LibgdxModelViewer extends ApplicationAdapter implements AnimationLi
         
         //Disable backface culling
         for(Material m : instance.materials)
-        	m.set(new IntAttribute(IntAttribute.CullFace, Gdx.gl.GL_NONE));
+        	m.set(new IntAttribute(IntAttribute.CullFace, GL20.GL_NONE));
         
         //Get animations if any
         if(instance.animations.size > 0){
